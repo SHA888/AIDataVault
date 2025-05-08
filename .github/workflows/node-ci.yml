@@ -30,6 +30,17 @@ jobs:
       run: npm ci
     - name: Run tests
       run: npm test
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.organization=SHA888
+          -Dsonar.projectKey=SHA888_AIDataVault
+          -Dsonar.sources=src
+        projectBaseDir: server
     # Add build command if you have one, e.g., npm run build
     # Add test command, e.g., npm test
     # Example: Check if the server starts (very basic test)
