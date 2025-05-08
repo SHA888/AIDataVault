@@ -1,0 +1,34 @@
+{
+  "name": "ai-datavault",
+  "version": "0.1.0",
+  "description": "A decentralized marketplace for verified AI training datasets",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node scripts/dev.js list",
+    "analyze": "node scripts/dev.js analyze-complexity --research",
+    "list": "node scripts/dev.js list",
+    "expand": "node scripts/dev.js expand",
+    "generate": "node scripts/dev.js generate",
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "AI",
+    "datavault",
+    "marketplace",
+    "blockchain",
+    "verifiable",
+    "credentials",
+    "cheqd",
+    "hackathon"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "claude-task-master": "^1.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
