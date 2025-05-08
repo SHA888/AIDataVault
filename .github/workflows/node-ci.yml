@@ -40,6 +40,7 @@ jobs:
           -Dsonar.organization=SHA888
           -Dsonar.projectKey=SHA888_AIDataVault
           -Dsonar.sources=src
+          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         projectBaseDir: server
     # Add build command if you have one, e.g., npm run build
     # Add test command, e.g., npm test
