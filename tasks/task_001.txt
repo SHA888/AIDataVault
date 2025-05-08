@@ -57,7 +57,7 @@
 7. Implement rate limiting and security headers
 8. Configure environment-specific settings
 
-## 3. Cloud Infrastructure Provisioning [pending]
+## 3. Cloud Infrastructure Provisioning [deferred]
 ### Dependencies: 1.1, 1.2
 ### Description: Set up cloud resources and infrastructure as code for the application
 ### Details:
@@ -70,7 +70,7 @@
 7. Implement database backup and recovery procedures
 8. Configure monitoring and alerting with CloudWatch/Prometheus/Grafana
 
-## 4. CI/CD Pipeline Implementation [pending]
+## 4. CI/CD Pipeline Implementation [in-progress]
 ### Dependencies: 1.1, 1.2, 1.3
 ### Description: Create automated build, test, and deployment pipelines for all components
 ### Details:
