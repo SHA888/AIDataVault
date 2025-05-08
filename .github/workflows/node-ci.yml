@@ -1,0 +1,38 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x] # You can adjust or add Node.js versions
+
+    defaults:
+      run:
+        working-directory: ./server # Set working directory to the server folder
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: server/package-lock.json # Path to package-lock.json
+    - name: Install dependencies
+      run: npm ci
+    # Add build command if you have one, e.g., npm run build
+    # Add test command, e.g., npm test
+    # Example: Check if the server starts (very basic test)
+    - name: Check if server starts (requires DB to be mocked or skipped for CI)
+      run: node src/index.js & APP_PID=$! && sleep 5 && kill $APP_PID || exit 1
+      # This server start check is very basic and will likely fail if the DB isn't available.
+      # For a real CI, you'd mock the DB or use a test DB service.
+      # For now, we might comment this out or adjust it.
