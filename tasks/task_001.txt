@@ -1,6 +1,6 @@
 # Task ID: 1
 # Title: Setup Project Infrastructure
-# Status: pending
+# Status: in-progress
 # Dependencies: None
 # Priority: high
 # Description: Initialize the project repository with React.js/Next.js frontend, Node.js/Express backend, and configure cloud infrastructure on AWS/Azure/GCP with CI/CD pipeline.
@@ -32,7 +32,7 @@
 5. Run security scanning on initial infrastructure
 
 # Subtasks:
-## 1. Frontend Infrastructure Setup [pending]
+## 1. Frontend Infrastructure Setup [done]
 ### Dependencies: None
 ### Description: Configure and set up the frontend development environment and build pipeline
 ### Details:
