@@ -28,6 +28,8 @@ jobs:
         cache-dependency-path: server/package-lock.json # Path to package-lock.json
     - name: Install dependencies
       run: npm ci
+    - name: Run tests
+      run: npm test
     # Add build command if you have one, e.g., npm run build
     # Add test command, e.g., npm test
     # Example: Check if the server starts (very basic test)
