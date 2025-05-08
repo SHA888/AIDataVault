@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: ./server # Tells Docker Compose to look for the Dockerfile in the ./server directory
+    ports:
+      - "3001:3001"   # Maps port 3001 of the host to port 3001 of the 'app' container
+    environment:
+      NODE_ENV: development
+      PORT: 3001      # The port your Node.js app will listen on inside its container
+      DATABASE_URL: postgresql://aidatavault_user:aidatavault_password@db:5432/aidatavault_db
+      JWT_SECRET: "25f454f3ac129098542492e86f45b5faf9bb052f793f8bcf05cf37d6b7d04849" # !!! IMPORTANT: Replace this with a real, strong secret !!!
+    depends_on:
+      db: # Updated depends_on
+        condition: service_healthy
+    # For development with live-reloading (if your server/Dockerfile supports it e.g. with nodemon):
+    # volumes:
+    #   - ./server:/usr/src/app        # Mounts your local ./server code into the container
+    #   - /usr/src/app/node_modules  # Anonymous volume to use container's node_modules
+
+  db:
+    image: postgres:16-alpine  # Uses the official PostgreSQL 16 Alpine image
+    ports:
+      - "5433:5432"   # Maps port 5433 of the host to port 5432 of the 'db' container
+                      # (Using 5433 on host to avoid conflicts if you have local Postgres on 5432)
+    environment:
+      POSTGRES_USER: aidatavault_user         # Username for PostgreSQL
+      POSTGRES_PASSWORD: aidatavault_password # Password for PostgreSQL
+      POSTGRES_DB: aidatavault_db             # Database name to be created
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persists database data in a named volume
+    healthcheck: # Added healthcheck
+      test: ["CMD-SHELL", "pg_isready -U aidatavault_user -d aidatavault_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s # Optional: give it some time to start before first check
+
+volumes:
+  postgres_data: # Defines the named volume 'postgres_data'

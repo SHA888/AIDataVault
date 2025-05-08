@@ -51,11 +51,11 @@ const startServer = async () => {
       logger.warn('CI environment detected. Skipping database connection and sync.');
     }
   } catch (error) {
-    logger.error('Database operation failed:', error);
-    if (process.env.CI !== 'true') {
-      // For non-CI environments, you might want to exit if DB connection is critical
-      logger.error('Exiting due to database connection failure in non-CI environment.');
-      process.exit(1); 
+    logger.error('Database operation failed:');
+    console.error("Detailed connection error object:", error);
+    logger.error('Exiting due to database connection failure in non-CI environment.');
+    if (process.env.NODE_ENV !== 'ci' && process.env.CI !== 'true') {
+      process.exit(1);
     }
     // In CI, log the error but proceed to start the server
     logger.warn('Proceeding to start server in CI despite database error.');

@@ -54,6 +54,69 @@ AI DataVault creates a trusted marketplace for AI training data by leveraging ch
 - **Authentication**: DID-based authentication
 - **Verification**: cheqd SDKs for credential verification
 
+## 🏗️ System Architecture
+
+This section outlines the local development architecture and the CI/CD pipeline.
+
+```mermaid
+graph TD
+    subgraph "User's Local Machine"
+        U[Developer] -->|1. Runs 'docker compose up'| CLI(Docker Compose CLI)
+        CLI -->|2. Reads| DComposeFile(docker-compose.yml)
+        Browser(User's Browser/API Tool) -->|7. HTTP Request to localhost:3001| HostPort(Host Port 3001)
+    end
+
+    subgraph "Docker Environment (Managed by Docker Engine)"
+        direction LR
+        HostPort -->|8. Forwards to| AppContainerPort(app:3001)
+
+        subgraph "Docker Network (e.g., aidatavault_default)"
+            direction LR
+            AppContainer[("
+                **app Container (aidatavault-app-1)**
+                Node.js Server
+                <em>Listens on 3001</em>
+                Env: DATABASE_URL
+            ")]
+            AppContainerPort --> AppContainer
+
+            DBContainer[("
+                **db Container (aidatavault-db-1)**
+                PostgreSQL Server
+                <em>Listens on 5432 (internal)</em>
+                Data: Docker Volume
+            ")]
+
+            AppContainer -->|9. SQL Query via DATABASE_URL (to db:5432)| DBContainer
+            DBContainer -->|10. SQL Response| AppContainer
+        end
+        AppContainer -->|11. HTTP Response| HostPort
+    end
+    HostPort -->|12. HTTP Response| Browser
+
+
+    subgraph "CI/CD Pipeline (GitHub Actions)"
+        direction TB
+        GHRepo["GitHub Repository (AIDataVault Code)"] -- Triggers --> GHWorkflow["
+            **GitHub Actions Workflow (node-ci.yml)**
+            <em>Runs on ubuntu-latest</em>
+            1. Checkout code
+            2. Setup Node.js
+            3. npm ci (in ./server)
+            4. npm test (in ./server)
+            5. SonarCloud Scan
+        "]
+        GHWorkflow -->|Sends analysis| SonarCloud(SonarCloud.io)
+    end
+
+    classDef dockerComponent fill:#D1E8FF,stroke:#3670A7,stroke-width:2px;
+    class AppContainer,DBContainer,AppContainerPort dockerComponent;
+    classDef hostComponent fill:#E6FFE6,stroke:#50C878,stroke-width:2px;
+    class U,CLI,DComposeFile,Browser,HostPort hostComponent;
+    classDef ciComponent fill:#FFF0E6,stroke:#FF8C00,stroke-width:2px;
+    class GHRepo,GHWorkflow,SonarCloud ciComponent;
+```
+
 ## 📂 Project Structure
 
 ```

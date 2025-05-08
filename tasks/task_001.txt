@@ -1,6 +1,6 @@
 # Task ID: 1
 # Title: Setup Project Infrastructure
-# Status: in-progress
+# Status: done
 # Dependencies: None
 # Priority: high
 # Description: Initialize the project repository with React.js/Next.js frontend, Node.js/Express backend, and configure cloud infrastructure on AWS/Azure/GCP with CI/CD pipeline.
@@ -57,7 +57,7 @@
 7. Implement rate limiting and security headers
 8. Configure environment-specific settings
 
-## 3. Cloud Infrastructure Provisioning [deferred]
+## 3. Cloud Infrastructure Provisioning [done]
 ### Dependencies: 1.1, 1.2
 ### Description: Set up cloud resources and infrastructure as code for the application
 ### Details:
@@ -70,7 +70,7 @@
 7. Implement database backup and recovery procedures
 8. Configure monitoring and alerting with CloudWatch/Prometheus/Grafana
 
-## 4. CI/CD Pipeline Implementation [in-progress]
+## 4. CI/CD Pipeline Implementation [done]
 ### Dependencies: 1.1, 1.2, 1.3
 ### Description: Create automated build, test, and deployment pipelines for all components
 ### Details:
@@ -83,7 +83,7 @@
 7. Set up infrastructure validation tests
 8. Configure notifications for pipeline status
 
-## 5. Infrastructure Documentation and Handover [pending]
+## 5. Infrastructure Documentation and Handover [done]
 ### Dependencies: 1.1, 1.2, 1.3, 1.4
 ### Description: Create comprehensive documentation for all infrastructure components and setup procedures
 ### Details:
