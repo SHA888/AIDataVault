@@ -44,7 +44,7 @@
 6. Set up Jest and React Testing Library for unit tests
 7. Configure environment variables for different deployment environments
 
-## 2. Backend Infrastructure Setup [pending]
+## 2. Backend Infrastructure Setup [done]
 ### Dependencies: None
 ### Description: Establish the backend server architecture, database connections, and API structure
 ### Details:
